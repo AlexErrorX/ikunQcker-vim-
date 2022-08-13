@@ -11,7 +11,7 @@ set ignorecase
 set smartcase
 set notimeout
 set mouse=a
-"设置键盘
+"设置键t
 imap jk <Esc>
 nmap <space> :
 "安装插件
@@ -30,17 +30,17 @@ map <silent> <C-e> :NERDTreeToggle<CR>
 "
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
-inoremap < <><Esc>i
+""inoremap < <><Esc>i
 inoremap { {}<Esc>i
 inoremap ' ''<Esc>i
-inoremap " ""<Esc>i
+""inoremap " ""<Esc>i
 inoremap { {<CR>}<Esc>O 
 " 按退格键时判断当前光标前一个字符，如果是左括号，则删除对应的右括号以及括号中间的内容
 function! RemovePairs()
 let l:line = getline(".")
 let l:previous_char = l:line[col(".")-1] " 取得当前光标前一个字符
  
-if index(["(", "[", "{"], l:previous_char) != -1
+if index(["(","{"], l:previous_char) != -1
 let l:original_pos = getpos(".")
 execute "normal %"
 let l:new_pos = getpos(".")
@@ -80,3 +80,13 @@ endfunction
 inoremap ) <ESC>:call RemoveNextDoubleChar(')')<CR>a
 inoremap ] <ESC>:call RemoveNextDoubleChar(']')<CR>a
 inoremap } <ESC>:call RemoveNextDoubleChar('}')<CR>a
+
+
+
+
+"文件重命名
+:command! -nargs=1 Rename let tpname = expand('%:t') | saveas <args> | edit <args> | call delete(expand(tpname))
+
+
+"复制到系统剪切板
+set clipboard=unnamedplus
